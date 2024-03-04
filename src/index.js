@@ -1,9 +1,14 @@
 import express from "express";
 import router from "./routes/routes.js";
+import cookieParser from "cookie-parser";
+
 // ------------------------ //
 
 export const app = express();
+
+app.use(cookieParser());
 app.use(express.json());
+
 
 // LOAD ROUTES HERE
 app.use("/api", router);
