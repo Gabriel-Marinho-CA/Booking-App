@@ -32,6 +32,8 @@ class HotelsController {
                     returning: true
                 });
 
+            if(!updatedHotel) return res.status(500).json({error: "Can't find hotel id"});
+
             return res.status(200).json(updatedHotel);
 
         } catch (error) {
