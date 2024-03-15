@@ -21,6 +21,10 @@ const HotelModel = sequelize.define('Hotel', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    city: {
+        type: DataTypes.STRING,
+        allowNull:false
+    },
     address: {
         type: DataTypes.STRING,
         allowNull: false

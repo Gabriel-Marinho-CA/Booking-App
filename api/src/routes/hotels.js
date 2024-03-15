@@ -7,8 +7,10 @@ import {
 const hotelRouter = express.Router();
 
 // HOTELS
-hotelRouter.get("/:id", HotelsController.getHotel);
+hotelRouter.get("/find/:id", HotelsController.getHotel);
 hotelRouter.get("/", HotelsController.getAllHotel);
+hotelRouter.get("/countByCity", HotelsController.countByCity);
+hotelRouter.get("/countByType", HotelsController.getAllHotel);
 hotelRouter.post('/', verifyAdmin, HotelsController.createHotel);
 hotelRouter.put("/:id", verifyAdmin, HotelsController.updateHotel);
 hotelRouter.delete("/:id", verifyAdmin, HotelsController.deleteHotel);

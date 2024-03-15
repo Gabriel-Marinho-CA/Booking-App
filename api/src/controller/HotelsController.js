@@ -3,6 +3,10 @@ sequelize
 from "../db/db.js";
 import HotelModel from "../models/HotelModel.js";
 
+import {
+    Op
+} from "sequelize";
+
 // import ErrorHandler from "../utils/error.js";
 
 sequelize.authenticate();
@@ -32,7 +36,9 @@ class HotelsController {
                     returning: true
                 });
 
-            if(!updatedHotel) return res.status(500).json({error: "Can't find hotel id"});
+            if (!updatedHotel) return res.status(500).json({
+                error: "Can't find hotel id"
+            });
 
             return res.status(200).json(updatedHotel);
 
@@ -89,6 +95,29 @@ class HotelsController {
         try {
             const getAllHotels = await HotelModel.findAll();
             return res.status(200).json(getAllHotels);
+
+        } catch (error) {
+            console.log(error)
+            next(error);
+
+            // if (failed) return next(ErrorHandler.createError(401, "You are not autenticated"));
+        }
+    }
+
+    async countByCity(req, res, next) {
+        const cities = req.query.cities.split(",");
+
+        try {
+            const list = await Promise.all(cities.map(cityCell => {
+                return HotelModel.count({
+                    where: {
+                        city:  {
+                          [Op.iLike]: cityCell
+                        }
+                    }
+                })
+            }));
+            return res.status(200).json(list);
 
         } catch (error) {
             console.log(error)
