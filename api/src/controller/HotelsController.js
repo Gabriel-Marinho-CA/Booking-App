@@ -111,13 +111,81 @@ class HotelsController {
             const list = await Promise.all(cities.map(cityCell => {
                 return HotelModel.count({
                     where: {
-                        city:  {
-                          [Op.iLike]: cityCell
+                        city: {
+                            [Op.iLike]: cityCell
                         }
                     }
                 })
             }));
             return res.status(200).json(list);
+
+        } catch (error) {
+            console.log(error)
+            next(error);
+
+            // if (failed) return next(ErrorHandler.createError(401, "You are not autenticated"));
+        }
+    }
+    async countByType(req, res, next) {
+
+        try {
+            const hotelsCount = await HotelModel.count({
+                where: {
+                    type: {
+                        [Op.iLike]: "hotel"
+                    }
+                }
+            })
+            const apartmentsCount = await HotelModel.count({
+                where: {
+                    type: {
+                        [Op.iLike]: "apartments"
+                    }
+                }
+            })
+            const resortsCount = await HotelModel.count({
+                where: {
+                    type: {
+                        [Op.iLike]: "resorts"
+                    }
+                }
+            })
+            const cabinsCount = await HotelModel.count({
+                where: {
+                    type: {
+                        [Op.iLike]: "cabins"
+                    }
+                }
+            })
+            const villasCount = await HotelModel.count({
+                where: {
+                    type: {
+                        [Op.iLike]: "villas"
+                    }
+                }
+            })
+
+            return res.status(200).json([{
+                    type: "hotel",
+                    count: hotelsCount
+                },
+                {
+                    type: "apartments",
+                    count: apartmentsCount
+                },
+                {
+                    type: "resorts",
+                    count: resortsCount
+                },
+                {
+                    type: "cabins",
+                    count: cabinsCount
+                },
+                {
+                    type: "villas",
+                    count: villasCount
+                },
+            ]);
 
         } catch (error) {
             console.log(error)

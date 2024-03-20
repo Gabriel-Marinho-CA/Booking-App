@@ -10,7 +10,7 @@ const hotelRouter = express.Router();
 hotelRouter.get("/find/:id", HotelsController.getHotel);
 hotelRouter.get("/", HotelsController.getAllHotel);
 hotelRouter.get("/countByCity", HotelsController.countByCity);
-hotelRouter.get("/countByType", HotelsController.getAllHotel);
+hotelRouter.get("/countByType", HotelsController.countByType);
 hotelRouter.post('/', verifyAdmin, HotelsController.createHotel);
 hotelRouter.put("/:id", verifyAdmin, HotelsController.updateHotel);
 hotelRouter.delete("/:id", verifyAdmin, HotelsController.deleteHotel);
