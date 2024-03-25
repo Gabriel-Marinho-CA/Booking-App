@@ -11,8 +11,6 @@ const Featured = () => {
     reFetchData
   } = useFetch("/hotels/countByCity?cities=Berlin,london,mexico");
 
-  console.log(data);
-
 
   return (
     <div className="featured">

@@ -92,8 +92,30 @@ class HotelsController {
     }
 
     async getAllHotel(req, res, next) {
+        const {
+            min,
+            max,
+            limit,
+            ...others
+        } = req.query;
+
         try {
-            const getAllHotels = await HotelModel.findAll();
+
+            const getAllHotels = await HotelModel.findAll({
+                where: {
+                    ...others,
+                    cheapestPrice:
+
+                    {
+                        [Op.gte]: min || 1,
+                        [Op.lte]: max || 200
+                    }
+
+                },
+                limit: limit || 10 
+
+            });
+
             return res.status(200).json(getAllHotels);
 
         } catch (error) {
